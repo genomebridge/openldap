@@ -43,6 +43,19 @@ when "ubuntu"
     response_file "slapd.seed"
     action :upgrade
   end
+when "debian"
+  if node['platform_version']=="7.3"
+    package "db4.8-util" do
+      action :upgrade
+    end
+  else
+    package "db4.2-util" do
+      action :upgrade
+    end
+  end
+  package "slapd" do
+    action :upgrade
+  end
 else
   package "db4.2-util" do
     action :upgrade
